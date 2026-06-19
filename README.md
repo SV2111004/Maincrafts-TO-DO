@@ -12,6 +12,11 @@ A full-stack To-Do application built using the MERN stack that allows users to c
 * Responsive and modern user interface
 * MongoDB Atlas integration
 
+  ## Preview
+
+<img width="514" height="379" alt="image" src="https://github.com/user-attachments/assets/c8966429-badf-41f5-8a33-97c4afa46047" />
+
+
 ## Tech Stack
 
 ### Frontend
