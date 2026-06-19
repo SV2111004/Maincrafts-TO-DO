@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  --bg: #0e1526;
+  --panel: #161f38;
+  --panel-border: rgba(241, 240, 236, 0.08);
+  --accent: #ff6b4a;
+  --mint: #7fe7c4;
+  --text: #f1f0ec;
+  --text-dim: #8993b0;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: radial-gradient(
+      circle at 15% 0%,
+      rgba(255, 107, 74, 0.1),
+      transparent 45%
+    ),
+    radial-gradient(circle at 85% 100%, rgba(127, 231, 196, 0.08), transparent 45%);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 540px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  border-top: 2px solid var(--accent);
+  padding: 36px 32px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--mint);
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.subhead {
+  color: var(--text-dim);
+  margin: 0 0 28px;
+  font-size: 14px;
+}
+
+.add-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.add-row input {
+  flex: 1;
+  background: rgba(241, 240, 236, 0.04);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 13px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.add-row input::placeholder {
+  color: var(--text-dim);
+}
+
+.add-row input:focus {
+  border-color: var(--accent);
+  background: rgba(241, 240, 236, 0.06);
+}
+
+.add-row button {
+  background: var(--accent);
+  color: #1a0e0a;
+  border: none;
+  border-radius: 10px;
+  padding: 0 22px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.add-row button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.add-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.add-row button:focus-visible,
+.check:focus-visible,
+.remove:focus-visible,
+.add-row input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+.error-banner {
+  background: rgba(255, 107, 74, 0.12);
+  border: 1px solid rgba(255, 107, 74, 0.3);
+  color: var(--accent);
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-state {
+  color: var(--text-dim);
+  font-size: 14px;
+  text-align: center;
+  padding: 36px 0;
+  border: 1px dashed var(--panel-border);
+  border-radius: 10px;
+}
+
+.ticket {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(241, 240, 236, 0.03);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  animation: slide-in 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket {
+    animation: none;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-dim);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ticket.is-done .check {
+  background: var(--mint);
+  border-color: var(--mint);
+}
+
+.check-mark {
+  font-size: 12px;
+  color: #0e1526;
+  line-height: 1;
+}
+
+.ticket-id {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.ticket-text {
+  flex: 1;
+  font-size: 14.5px;
+  word-break: break-word;
+}
+
+.ticket.is-done .ticket-text {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+/* in src/index.css — replace the .remove rule */
+.remove {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.15s ease, color 0.15s ease;
+  padding: 0 4px;
+}
+
+.ticket:hover .remove,
+.ticket:focus-within .remove {
+  opacity: 1;
+}
+
+.remove:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 28px 20px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  .remove {
+    opacity: 1;
+  }
+}
