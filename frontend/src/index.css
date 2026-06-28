@@ -45,7 +45,6 @@ body {
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: 16px;
-  border-top: 2px solid var(--accent);
   padding: 36px 32px;
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
 }
@@ -227,26 +226,79 @@ h1 {
   text-decoration: line-through;
 }
 
-/* in src/index.css — replace the .remove rule */
-.remove {
-  background: transparent;
-  border: none;
-  color: var(--text-dim);
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
+/* ── Ticket action buttons (edit / delete / save / cancel) ── */
+.ticket-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
   opacity: 0.35;
-  transition: opacity 0.15s ease, color 0.15s ease;
-  padding: 0 4px;
+  transition: opacity 0.15s ease;
 }
 
-.ticket:hover .remove,
-.ticket:focus-within .remove {
+.ticket:hover .ticket-actions,
+.ticket:focus-within .ticket-actions,
+.ticket.is-editing .ticket-actions {
   opacity: 1;
 }
 
-.remove:hover {
+.action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 5px;
+  border-radius: 6px;
+  transition: background 0.12s ease, color 0.12s ease;
+  color: var(--text-dim);
+}
+
+.action-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.action-btn.edit:hover:not(:disabled) {
+  color: var(--mint);
+  background: rgba(127, 231, 196, 0.1);
+}
+
+.action-btn.remove:hover {
   color: var(--accent);
+  background: rgba(255, 107, 74, 0.1);
+}
+
+.action-btn.save:hover {
+  color: var(--mint);
+  background: rgba(127, 231, 196, 0.12);
+}
+
+.action-btn.cancel:hover {
+  color: var(--accent);
+  background: rgba(255, 107, 74, 0.1);
+}
+
+/* ── Inline edit input ── */
+.edit-input {
+  flex: 1;
+  background: rgba(241, 240, 236, 0.06);
+  border: 1px solid var(--mint);
+  border-radius: 6px;
+  padding: 4px 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  outline: none;
+}
+
+.ticket.is-editing {
+  border-color: rgba(127, 231, 196, 0.25);
+  background: rgba(127, 231, 196, 0.04);
+}
+
+/* ── Accent top border on panel ── */
+.panel {
+  border-top: 2px solid var(--accent);
 }
 
 @media (max-width: 480px) {
@@ -256,7 +308,7 @@ h1 {
   h1 {
     font-size: 26px;
   }
-  .remove {
+  .ticket-actions {
     opacity: 1;
   }
 }

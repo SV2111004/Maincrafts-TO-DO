@@ -57,24 +57,34 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
-// ----- Bonus routes (not required by the brief, but small + useful additions) -----
+// ----- Task 3: PUT /update/:id and DELETE /delete/:id -----
 
-// PATCH /tasks/:id/toggle -> mark a task complete / incomplete
-app.patch("/tasks/:id/toggle", async (req, res) => {
+// PUT /update/:id -> edit text and/or mark completed
+app.put("/update/:id", async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
-    if (!task) return res.status(404).json({ error: "Task not found" });
-    task.completed = !task.completed;
-    await task.save();
-    res.json(task);
+    const { text, completed } = req.body;
+    const updates = {};
+    if (text !== undefined) {
+      if (!text.trim()) return res.status(400).json({ error: "Task text cannot be empty" });
+      updates.text = text.trim();
+    }
+    if (completed !== undefined) updates.completed = completed;
+
+    const updated = await Task.findByIdAndUpdate(
+      req.params.id,
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+    if (!updated) return res.status(404).json({ error: "Task not found" });
+    res.json(updated);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to update task" });
   }
 });
 
-// DELETE /tasks/:id -> remove a task
-app.delete("/tasks/:id", async (req, res) => {
+// DELETE /delete/:id -> remove a task
+app.delete("/delete/:id", async (req, res) => {
   try {
     const deleted = await Task.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ error: "Task not found" });
