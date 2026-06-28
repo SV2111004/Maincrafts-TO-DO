@@ -1,6 +1,6 @@
 # MERN To-Do Application
 
-A full-stack To-Do application built using the MERN stack that allows users to create, view, complete, and delete tasks.
+A full-stack To-Do application built using the MERN stack that allows users to create, view, modify, complete, and delete tasks.
 
 ## Features
 
